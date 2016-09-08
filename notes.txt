@@ -1,0 +1,38 @@
+9 / 7 / 2016
+------------
+First off, the datasets are ***very large***. In fact, they cannot fit into
+memory so a generator will need to be built to properly process them.
+
+Second, there are __many__ features to consider:
+::train_categorical.columns >>> length=2141  # all numerical
+::train_numeric.columns >>> length=970       # pd.get_dummies(...)
+::train_date.columns >>> length=1157         # all numerical
+Altogether --> 4268 features(!)
+
+Some are 'nan' for long periods of time (i.e. categories only appear in sparse
+areas). This happens to all three, categorical seems to stick out as
+particularly sparse though.
+
+Lastly, none of the cateogires have english names, they are all coded out.
+
+Eyeballing 'train_date' suggests that its categorical, so I'll treat it as such
+
+
+Questions to Ask:
+  * Are there any scikit learn methods that will accept 'nan' values gracefully?
+
+Steps to build:
+  * Impute missing data on _numerical, consider 'nan' its own categorical for
+    _categorical and _date. Output these into new CSVs 
+  * Join all three CSVs together into one big CSV (gulp)
+  * A train/valid/test splitter that will split up all the data (gulp), which
+    should ideally be done on my local machine if it can handle it. Save these
+    to separate csv files.
+  * Complete PCA/LDA/QDA/SVD and general new features, save these to separate
+    CSV files as well (maybe __with__ the original data too?)
+  * Use feature selectors like looking for high variance features and using
+    overfitted randomForest (multiple times to check) to see which features
+    are most necesary.
+  * Throw this all into xgboost for a final model
+  * Double check on the validation set for hyperparameter selection
+  * Use the test set to do final checks
