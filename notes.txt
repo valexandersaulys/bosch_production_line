@@ -1,4 +1,4 @@
-9 / 7 / 2016
+9/7/2016
 ------------
 First off, the datasets are ***very large***. In fact, they cannot fit into
 memory so a generator will need to be built to properly process them.
@@ -36,3 +36,14 @@ Steps to build:
   * Throw this all into xgboost for a final model
   * Double check on the validation set for hyperparameter selection
   * Use the test set to do final checks
+
+----------------------------------------------------------------------------(80)
+9 / 8 / 2016
+============
+
+train_numeric has 1,183,748 lines in it
+
+It takes a fairly long time to do the imputing. This can be seen in 'find_dict_value.py',
+which I'll funnel in piece by piece into the main python.
+
+I added a generator that I scalped from a previous contest as well. 
