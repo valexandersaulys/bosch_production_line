@@ -22,9 +22,9 @@ for col in cols:
     # this is the bottleneck
     df = pd.read_csv("./data/train_numeric.csv",usecols=[col]);
 
-    k_mean[col] = df.mean();
-    k_median[col] = df.median();
-    k_mode[col] = df.mode();
+    k_mean[col] = df.mean().tolist()[0];
+    k_median[col] = df.median().tolist()[0];
+    k_mode[col] = df.mode().tolist()[0];
 
     i += 1;
 

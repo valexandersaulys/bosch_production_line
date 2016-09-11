@@ -47,3 +47,25 @@ It takes a fairly long time to do the imputing. This can be seen in 'find_dict_v
 which I'll funnel in piece by piece into the main python.
 
 I added a generator that I scalped from a previous contest as well. 
+
+----------------------------------------------------------------------------(80)
+9 / 10 / 2016
+============
+
+Might it make more sense to insert the mean and median values at compute time as
+opposed to building whole new CSV files?
+
+I decided to do just that as I had troubles with the imputed values into their
+own CSVs.
+
+I'm thinking that all joins for the data should be done on 'readin_data.py'
+
+Looking into breaking up the category columns in different columns; there's an
+issue though as pd.get_dummies(...) and np.unique(...) do not return correct
+values. Trying to figre out a way around.
+
+I'm trying to run the following as I type, but its taking a while. Using a list
+to brute force search for unique values:
+>>> unique = [used.append(x) for x in df.values.tolist() if x not in used]
+http://stackoverflow.com/questions/12897374/get-unique-values-from-a-list-in-python
+Getting weird results, it ran for a long time so I gave up (maybe ~90 minutes)
