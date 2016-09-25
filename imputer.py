@@ -10,7 +10,7 @@ cols = pd.read_csv("./data/train_numeric.csv",nrows=5).columns.tolist()
 del cols[0];  # first is ID
 
 for col in cols:
-    df = pd.read_csv("./data/train_numeri.csv",usecols=[col])
+    df = pd.read_csv("./data/train_numeric.csv",usecols=[col])
 
     df.fillna(df.mean())  # maybe median?
     

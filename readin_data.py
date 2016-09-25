@@ -1,17 +1,18 @@
 # Helper function to read in the data
 import pandas as pd
 from random import randint
+import pickle
 
 DATALENGTH = 1183748;
 TRAIN_NUMERIC = "./data/train_numeric.csv"
 TRAIN_CAT = "./data/train_categorical.csv"
 TRAIN_DATE = "./data/train_date.csv"
 
-def read_data_numeric(n,i=0,imputing="mean"): 
+def read_data_numeric(n=10000,i=0,imputing="mean"): 
     i = 0;
     cols = pd.read_csv(TRAIN_NUMERIC,nrows=5).columns.tolist();
     k = load_dicts(imputing);
-    while i < DATALENGTH:
+    while i*n < DATALENGTH:
           df = pd.read_csv(TRAIN_NUMERIC,skiprows=(i*n),nrows=n)
           df.columns = cols;
           yield df.fillna(k);

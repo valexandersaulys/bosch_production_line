@@ -1,5 +1,8 @@
+URL: https://www.kaggle.com/c/bosch-production-line-performance
+Due: November 11th, 2016
+----------------------------------------------------------------------------(80)
 9/7/2016
-------------
+=========
 First off, the datasets are ***very large***. In fact, they cannot fit into
 memory so a generator will need to be built to properly process them.
 
@@ -37,10 +40,10 @@ Steps to build:
   * Double check on the validation set for hyperparameter selection
   * Use the test set to do final checks
 
+
 ----------------------------------------------------------------------------(80)
 9 / 8 / 2016
 ============
-
 train_numeric has 1,183,748 lines in it
 
 It takes a fairly long time to do the imputing. This can be seen in 'find_dict_value.py',
@@ -51,7 +54,6 @@ I added a generator that I scalped from a previous contest as well.
 ----------------------------------------------------------------------------(80)
 9 / 10 / 2016
 ============
-
 Might it make more sense to insert the mean and median values at compute time as
 opposed to building whole new CSV files?
 
@@ -69,3 +71,42 @@ to brute force search for unique values:
 >>> unique = [used.append(x) for x in df.values.tolist() if x not in used]
 http://stackoverflow.com/questions/12897374/get-unique-values-from-a-list-in-python
 Getting weird results, it ran for a long time so I gave up (maybe ~90 minutes)
+
+----------------------------------------------------------------------------(80)
+9 / 11 / 2016
+==============
+So I figured out that the pd.get_dummies(...) was missing a parameter to account
+for 'NaN' values, namely pd.get_dummies(df,dummy_na=True).
+
+Figured out how to write categorical data via multicore processing because its
+going to take a long time (~30 hours) otherwise.
+
+
+----------------------------------------------------------------------------(80)
+9 / 12 / 2016
+=============
+Added a time elapsed bit to the 'ohe_categorical.py' and its taking forever to
+run, so I'll queue it up to run tomorrow morning while I'm at work.
+
+
+----------------------------------------------------------------------------(80)
+9 / 24 / 2016
+=============
+So I did run it on the 13th and now I'm getting back to this contest after a
+few weeks. The categorical data when one hot encoded has 8538 features.
+  -> 'test_categorical.csv' also needs to be run this way. Likely will be done on
+     Monday.
+Now I'm going to stitch it all together with 'assemble_data.py' to allow for
+better splitting. Currently sitting on ~120gb of CSV data (oof).
+
+I'm still getting 'NaN' values for some date values (like in 'L3_S51_D4255').
+Given there are too many values, I'll have to impute values instead. Rewrote
+the dict finding functions to allow for multicore processing because it
+would be brutally slow otherwise.
+
+Files Added:
+------------
+assemble_data.py --> will assemble all the data together (numeric, categorical,
+                 date), then split it into train/test/valid. Not complete,
+                 waiting until I can impute the values for 'train_date.csv'.
+find_dict_values_date.py --> finds the mean, mode, median of the date csv
