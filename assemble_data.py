@@ -17,32 +17,55 @@ TRAIN_DATE = "./data/train_date.csv"
 def load_dicts(x):
     if x=="mean":
         k = pickle.load( open("train_numeric_mean_dictionary.pkl","rb") )
+        kk = pickle.load( open("train_date_mean_dictionary.pkl","rb") )
     elif x=="median":
         k = pickle.load( open("train_numeric_median_dictionary.pkl","rb") )
+        kk = pickle.load( open("train_date_median_dictionary.pkl","rb") )
     else:
-        raise ValueError("Got a strange value for k --> %s" % str(x));
-    return k;
+        raise ValueError("Got a strange value --> %s" % str(x));
+    return k,kk;
 
-i=0; n=10000; lf=[]; #n=100000;
-k = load_dicts("mean")
-#while i*n < DATALENGTH:
-for i in range(1):
+# Get columns before plunging forward
+categorical_cols = pd.read_csv("./data/train_categorical_ohe.csv",nrows=5).columns.tolist()
+numeric_cols = pd.read_csv("./data/train_numeric.csv",nrows=5).columns.tolist()
+date_cols = pd.read_csv("./data/train_date.csv",nrows=5).columns.tolist()
+
+i=0; n=50000; lf=[]; #n=100000;
+k,kk = load_dicts("mean")
+#for i in range(1):
+while i*n < DATALENGTH:
     start_time = time.time()
     print "Doing the numbers between %d and %d" % (i*n, (i+1)*n)
 
     print "reading train_ohe.csv"
-    train_ohe = pd.read_csv("./data/train_categorical_ohe.csv",skiprows=i*n,nrows=n)
+    train_ohe = pd.read_csv("./data/train_categorical_ohe.csv",skiprows=i*n,nrows=n,header=None)
 
     print "reading train_numeric.csv"
-    train_numeric = pd.read_csv("./data/train_numeric.csv",skiprows=i*n,nrows=n).fillna(k)
+    train_numeric = pd.read_csv("./data/train_numeric.csv",skiprows=i*n,
+                                nrows=n,header=None).fillna(k)
 
     print "reading train_date.csv"  # this still has 'NaN' values
-    train_date = pd.read_csv("./data/train_date.csv",skiprows=i*n,nrows=n)
+    train_date = pd.read_csv("./data/train_date.csv",skiprows=i*n,
+                             nrows=n,header=None).fillna(kk);
 
+    print "Assigning Correct Columns"
+    train_ohe.columns = categorical_cols
+    train_numeric.columns = numeric_cols
+    train_date.columns = date_cols
+    
     print "appending and assembling everything together"
     lf.append(pd.merge(pd.merge(train_ohe,train_numeric,on="Id"),train_date,on="Id"));
 
+    i += 1;
+    print "- - - - - Took %f seconds - - - - -" % (time.time() - start_time);
     print "";
+
+    # Clear out everything
+    del train_ohe;
+    del train_numeric;
+    del train_date;
+    
+
 df = pd.concat(lf,axis=1);
 
 print "writing to csv"
