@@ -7,11 +7,15 @@ Saving data is taking the longest to compute
 import pandas as pd
 import time, pickle
 from sklearn.cross_validation import train_test_split
+import logging
 
 DATALENGTH = 1183748;
 TRAIN_NUMERIC = "./data/train_numeric.csv"
 TRAIN_CAT = "./data/train_categorical.csv"
 TRAIN_DATE = "./data/train_date.csv"
+
+# Setup logging
+logging.basicConfig(filename="assemble.log",level=logging.DEBUG);
 
 # helper function to process imputing dictionaries
 def load_dicts(x):
@@ -30,35 +34,35 @@ categorical_cols = pd.read_csv("./data/train_categorical_ohe.csv",nrows=5).colum
 numeric_cols = pd.read_csv("./data/train_numeric.csv",nrows=5).columns.tolist()
 date_cols = pd.read_csv("./data/train_date.csv",nrows=5).columns.tolist()
 
-i=0; n=50000; lf=[]; #n=100000;
+i=0; n=10000; lf=[]; #n=100000;
 k,kk = load_dicts("mean")
 #for i in range(1):
-while i*n < DATALENGTH:
+while (i-1)*n < DATALENGTH:
     start_time = time.time()
-    print "Doing the numbers between %d and %d" % (i*n, (i+1)*n)
+    logging.debug("Doing the numbers between %d and %d" % (i*n, (i+1)*n))
 
-    print "reading train_ohe.csv"
+    logging.debug("reading train_ohe.csv")
     train_ohe = pd.read_csv("./data/train_categorical_ohe.csv",skiprows=i*n,nrows=n,header=None)
 
-    print "reading train_numeric.csv"
+    logging.debug("reading train_numeric.csv")
     train_numeric = pd.read_csv("./data/train_numeric.csv",skiprows=i*n,
                                 nrows=n,header=None).fillna(k)
 
-    print "reading train_date.csv"  # this still has 'NaN' values
+    logging.debug("reading train_date.csv");  # this still has 'NaN' values
     train_date = pd.read_csv("./data/train_date.csv",skiprows=i*n,
                              nrows=n,header=None).fillna(kk);
 
-    print "Assigning Correct Columns"
+    logging.debug("Assigning Correct Columns")
     train_ohe.columns = categorical_cols
     train_numeric.columns = numeric_cols
     train_date.columns = date_cols
     
-    print "appending and assembling everything together"
+    logging.debug("appending and assembling everything together")
     lf.append(pd.merge(pd.merge(train_ohe,train_numeric,on="Id"),train_date,on="Id"));
 
     i += 1;
-    print "- - - - - Took %f seconds - - - - -" % (time.time() - start_time);
-    print "";
+    logging.debug("- - - - - Took %f seconds - - - - -" % (time.time() - start_time));
+    logging.debug("");
 
     # Clear out everything
     del train_ohe;
@@ -68,16 +72,16 @@ while i*n < DATALENGTH:
 
 df = pd.concat(lf,axis=1);
 
-print "writing to csv"
+logging.debug("writing to csv")
 df.to_csv("./data/train_complete.csv")
 
 # split data into 60/20/20
-print "splitting data"
+logging.debug("splitting data")
 train, test_valid = train_test_split(df,train_size=0.6);
-valid,test = train_test_split(test_valid,train_size=0.5);
+valid, test = train_test_split(test_valid,train_size=0.5);
 
 # Then save everything
-print "saving split data"
+logging.debug("saving split data")
 train.to_csv("./data/split_data/train.csv",index=False);
 valid.to_csv("./data/split_data/valid.csv",index=False);
 test.to_csv("./data/split_data/test.csv",index=False);
