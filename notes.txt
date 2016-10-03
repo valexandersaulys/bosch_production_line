@@ -110,3 +110,42 @@ assemble_data.py --> will assemble all the data together (numeric, categorical,
                  date), then split it into train/test/valid. Not complete,
                  waiting until I can impute the values for 'train_date.csv'.
 find_dict_values_date.py --> finds the mean, mode, median of the date csv
+
+
+----------------------------------------------------------------------------(80)
+9 / 30 / 2016
+==============
+Had an issue running `assemble.py` with the data throwing me weird errors about
+Memory. I had trouble following it as my RAM was gone by the time I got back so
+I chose to implement loggers and try a different 'n' value. Those values are
+stored in `assemble_1.log`. It didn't work either, also got weird errors that I
+now forget (should've written down!).
+
+I'll be running the new assemble.py file tomorrow back at n=100000 and seeing
+what the logs put out. 
+
+Maybe I should try building the `readin_data.py` file but instead have it
+parse out the same Xth line to be used for validation later?
+
+
+Files Added:
+------------
+assemble_1.log --> the results of the 'assemble.py' file being run at n=10000
+
+----------------------------------------------------------------------------(80)
+10 / 02 / 2016
+==============
+I tried running at n=100000 for `assembly_data.py`, but I had a MemoryError. I
+didn't bother saving the log because it barely got past the first 100000. I
+think it saved part of it to the log file.
+
+I then tried n=50000 and got the log file that can be seen in `assemble_2.log`.
+It didn't work out too well, I got a MemoryError towards the end.
+
+I think that late idea I had to spread out the `readin_data.py` file will be the
+best idea to make this effective. 
+
+
+Files Added:
+------------
+assemble_2.log --> Results of n=50000

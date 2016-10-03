@@ -34,7 +34,7 @@ categorical_cols = pd.read_csv("./data/train_categorical_ohe.csv",nrows=5).colum
 numeric_cols = pd.read_csv("./data/train_numeric.csv",nrows=5).columns.tolist()
 date_cols = pd.read_csv("./data/train_date.csv",nrows=5).columns.tolist()
 
-i=0; n=10000; lf=[]; #n=100000;
+i=0; n=50000; lf=[]; #n=100000;
 k,kk = load_dicts("mean")
 #for i in range(1):
 while (i-1)*n < DATALENGTH:
