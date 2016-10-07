@@ -1,0 +1,135 @@
+bosch_production_line_quality/$  python rf_model.py 
+Id                17372
+L0_S1_F25_T1        0.0
+L0_S1_F25_nan       1.0
+Id.1              17372
+L0_S1_F27_T9        0.0
+L0_S1_F27_nan       1.0
+Id.2              17372
+L0_S1_F29_T1        0.0
+L0_S1_F29_nan       1.0
+Id.3              17372
+L0_S1_F31_T24       0.0
+L0_S1_F31_T48       0.0
+L0_S1_F31_T9        0.0
+L0_S1_F31_nan       1.0
+Id.4              17372
+L0_S2_F33_T1        0.0
+L0_S2_F33_nan       1.0
+Id.5              17372
+L0_S2_F35_T128      0.0
+L0_S2_F35_T32       0.0
+L0_S2_F35_T4        0.0
+L0_S2_F35_T48       0.0
+L0_S2_F35_T64       0.0
+L0_S2_F35_T96       0.0
+L0_S2_F35_nan       1.0
+Id.6              17372
+L0_S2_F37_T1        0.0
+L0_S2_F37_nan       1.0
+Id.7              17372
+L0_S2_F39_T128      0.0
+                  ...  
+L3_S47_D4175          0
+L3_S47_D4180          0
+L3_S47_D4185          0
+L3_S47_D4190          0
+L3_S48_D4194          0
+L3_S48_D4195          0
+L3_S48_D4197          0
+L3_S48_D4199          0
+L3_S48_D4201          0
+L3_S48_D4203          0
+L3_S48_D4205          0
+L3_S49_D4208          0
+L3_S49_D4213          0
+L3_S49_D4218          0
+L3_S49_D4223          0
+L3_S49_D4228          0
+L3_S49_D4233          0
+L3_S49_D4238          0
+L3_S50_D4242          0
+L3_S50_D4244          0
+L3_S50_D4246          0
+L3_S50_D4248          0
+L3_S50_D4250          0
+L3_S50_D4252          0
+L3_S50_D4254          0
+L3_S51_D4255          0
+L3_S51_D4257          0
+L3_S51_D4259          0
+L3_S51_D4261          0
+L3_S51_D4263          0
+Name: 8741, dtype: object
+[(0, Id                            Id
+L0_S1_F25_T1        L0_S1_F25_T1
+L0_S1_F25_nan      L0_S1_F25_nan
+Id.1                          Id
+L0_S1_F27_T9        L0_S1_F27_T9
+L0_S1_F27_nan      L0_S1_F27_nan
+Id.2                          Id
+L0_S1_F29_T1        L0_S1_F29_T1
+L0_S1_F29_nan      L0_S1_F29_nan
+Id.3                          Id
+L0_S1_F31_T24      L0_S1_F31_T24
+L0_S1_F31_T48      L0_S1_F31_T48
+L0_S1_F31_T9        L0_S1_F31_T9
+L0_S1_F31_nan      L0_S1_F31_nan
+Id.4                          Id
+L0_S2_F33_T1        L0_S2_F33_T1
+L0_S2_F33_nan      L0_S2_F33_nan
+Id.5                          Id
+L0_S2_F35_T128    L0_S2_F35_T128
+L0_S2_F35_T32      L0_S2_F35_T32
+L0_S2_F35_T4        L0_S2_F35_T4
+L0_S2_F35_T48      L0_S2_F35_T48
+L0_S2_F35_T64      L0_S2_F35_T64
+L0_S2_F35_T96      L0_S2_F35_T96
+L0_S2_F35_nan      L0_S2_F35_nan
+Id.6                          Id
+L0_S2_F37_T1        L0_S2_F37_T1
+L0_S2_F37_nan      L0_S2_F37_nan
+Id.7                          Id
+L0_S2_F39_T128    L0_S2_F39_T128
+                       ...      
+L3_S47_D4175        L3_S47_D4175
+L3_S47_D4180        L3_S47_D4180
+L3_S47_D4185        L3_S47_D4185
+L3_S47_D4190        L3_S47_D4190
+L3_S48_D4194        L3_S48_D4194
+L3_S48_D4195        L3_S48_D4195
+L3_S48_D4197        L3_S48_D4197
+L3_S48_D4199        L3_S48_D4199
+L3_S48_D4201        L3_S48_D4201
+L3_S48_D4203        L3_S48_D4203
+L3_S48_D4205        L3_S48_D4205
+L3_S49_D4208        L3_S49_D4208
+L3_S49_D4213        L3_S49_D4213
+L3_S49_D4218        L3_S49_D4218
+L3_S49_D4223        L3_S49_D4223
+L3_S49_D4228        L3_S49_D4228
+L3_S49_D4233        L3_S49_D4233
+L3_S49_D4238        L3_S49_D4238
+L3_S50_D4242        L3_S50_D4242
+L3_S50_D4244        L3_S50_D4244
+L3_S50_D4246        L3_S50_D4246
+L3_S50_D4248        L3_S50_D4248
+L3_S50_D4250        L3_S50_D4250
+L3_S50_D4252        L3_S50_D4252
+L3_S50_D4254        L3_S50_D4254
+L3_S51_D4255        L3_S51_D4255
+L3_S51_D4257        L3_S51_D4257
+L3_S51_D4259        L3_S51_D4259
+L3_S51_D4261        L3_S51_D4261
+L3_S51_D4263        L3_S51_D4263
+Name: 0, dtype: object)]
+Traceback (most recent call last):
+  File "rf_model.py", line 16, in <module>
+    rf_model.fit(train.drop('Response',axis=1),train['Response']);
+  File "/usr/local/lib/python2.7/dist-packages/sklearn/ensemble/forest.py", line 212, in fit
+    X = check_array(X, dtype=DTYPE, accept_sparse="csc")
+  File "/usr/local/lib/python2.7/dist-packages/sklearn/utils/validation.py", line 373, in check_arr
+ay                                                                                                
+    array = np.array(array, dtype=dtype, order=order, copy=copy)
+ValueError: could not convert string to float: L3_S51_D4263
+bosch_production_line_quality/$  

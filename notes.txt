@@ -149,3 +149,26 @@ best idea to make this effective.
 Files Added:
 ------------
 assemble_2.log --> Results of n=50000
+
+----------------------------------------------------------------------------(80)
+10 / 06 / 2016
+===============
+Building out my `readin_data.py` to read in the data, but cut out every xth few
+lines, which output to a validation and test dataset.
+
+Predicting the 'response' variable remember.
+
+I had some major issues stemming form the dataframe where the dates for the
+data are not all covered. Thus I had to figure out an assumption to put. I just
+chose 0; eventually I can go back and do all the brute force work I did for the
+numeric and categorical data, but I really just want to train something already!
+
+I ran into an issue where some of my column headers are being put into the
+dataframe at times, don't know how that happened. Thinking I can just drop them.
+
+
+Files Added/Edited:
+-------------------
+readin_data.py --> changed to accept splits and produce train,valid, test
+rf_model.py --> my first sketch of a random forest model
+
