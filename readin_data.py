@@ -35,6 +35,14 @@ def read_data_all(n=10000,i=0,imputing="mean",split_size=0.3):
         # Then assmeble together
         df = pd.merge(pd.merge(df_ohe,df_numeric,on="Id"),df_date,on="Id")
         del df_numeric, df_ohe, df_date; # To clear out memory, hopefully
+
+        # Cut any strings I see that somehow made it in during the file operations
+        # Transform from objects into floats and such; drop the redundant Id columns
+        df = df[ df.Id.str.contains('Id')==False ]
+        cols_drop = [x for x in df.columns.tolist() if 'Id' in x][1:]
+        df = df.drop(cols_drop, axis=1);
+        for col in df.columns.tolist():  # very long to execute -- better method?
+            df[col] = pd.to_numeric(df[col],downcast="float")  
         
         train, kooky = train_test_split(df,test_size=split_size);
         valid, test = train_test_split(kooky,test_size=0.5);

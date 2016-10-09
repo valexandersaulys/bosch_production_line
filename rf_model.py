@@ -10,9 +10,6 @@ validation = []; testing = [];
 # Read in the Data & train the model
 rf_model = RandomForestClassifier(n_estimators=100);
 for train,valid,test in read_data_all():
-    abc = [row for row in train.iterrows()]
-    print abc[0][1];
-    print [row for row in train.iterrows() if row[1]['L3_S51_D4263'] == 'L3_S51_D4263']
     rf_model.fit(train.drop('Response',axis=1),train['Response']);
     testing.append(test);
     y_true = valid['Response']

@@ -152,7 +152,7 @@ assemble_2.log --> Results of n=50000
 
 ----------------------------------------------------------------------------(80)
 10 / 06 / 2016
-===============
+=============== 
 Building out my `readin_data.py` to read in the data, but cut out every xth few
 lines, which output to a validation and test dataset.
 
@@ -172,3 +172,34 @@ Files Added/Edited:
 readin_data.py --> changed to accept splits and produce train,valid, test
 rf_model.py --> my first sketch of a random forest model
 
+----------------------------------------------------------------------------(80)
+10 / 08 / 2016
+=============== 
+So I thought my issue with occassional strings is a result of writing to CSV with
+the headers, but now I'm not sure as none of my scripts will write with the
+headers nor do they write.
+
+Did that and then rewrote the `readin_data.py` file to read in the data and then
+recast everything into more correct numbers i.e. an object as float32 when
+applicable. But I still get errors! I'm missing something I'm sure. Posted it
+below for records:
+```
+Traceback (most recent call last):
+  File "rf_model.py", line 13, in <module>
+    rf_model.fit(train.drop('Response',axis=1),train['Response']);
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/ensemble/forest.py", line 212, in fit                                  
+    X = check_array(X, dtype=DTYPE, accept_sparse="csc")
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/utils/validation.py", line 398, in check_array                         
+    _assert_all_finite(array)
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/utils/validation.py", line 54, in _assert_all_finite                   
+    " or a value too large for %r." % X.dtype)
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+```
+
+Files Added/Edited:
+-------------------
+readin_data.py --> changed it to cut out any rows that have strings; aka drop
+               rows where the string in column 'Id' was 'Id'
