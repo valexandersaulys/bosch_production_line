@@ -1,5 +1,6 @@
 # Helper function to read in the data
 import pandas as pd
+import numpy as np
 from random import randint
 import pickle
 from sklearn.cross_validation import train_test_split
@@ -20,16 +21,19 @@ def read_data_all(n=10000,i=0,imputing="mean",split_size=0.3):
         # Numeric Data
         df_numeric = pd.read_csv(TRAIN_NUMERIC,skiprows=i*n,nrows=n,header=None,low_memory=False)
         df_numeric.columns = cols_numeric;
+        df_numeric = df_numeric.replace([np.inf, -np.inf], np.nan)
         df_numeric = df_numeric.fillna(k);
 
         # OHE Categorical Data
         df_ohe = pd.read_csv(TRAIN_CAT,skiprows=i*n,nrows=n,header=None,low_memory=False)
         df_ohe.columns = cols_ohe;
+        df_ohe = df_ohe.replace([np.inf, -np.inf], np.nan)
         df_ohe = df_ohe.fillna(kk);
 
         # Date Data
         df_date = pd.read_csv(TRAIN_DATE,skiprows=i*n,nrows=n,header=None,low_memory=False)
         df_date.columns = cols_date;
+        df_date = df_date.replace([np.inf, -np.inf], np.nan)
         df_date = df_date.fillna(0);  # damn time values screwing things up
 
         # Then assmeble together
@@ -41,9 +45,10 @@ def read_data_all(n=10000,i=0,imputing="mean",split_size=0.3):
         df = df[ df.Id.str.contains('Id')==False ]
         cols_drop = [x for x in df.columns.tolist() if 'Id' in x][1:]
         df = df.drop(cols_drop, axis=1);
+        df = df.convert_objects(convert_numeric=True)
         for col in df.columns.tolist():  # very long to execute -- better method?
-            df[col] = pd.to_numeric(df[col],downcast="float")  
-        
+            df[col] = pd.to_numeric(df[col],downcast="float");
+            
         train, kooky = train_test_split(df,test_size=split_size);
         valid, test = train_test_split(kooky,test_size=0.5);
         yield train,valid,test;

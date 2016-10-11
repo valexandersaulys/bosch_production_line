@@ -203,3 +203,35 @@ Files Added/Edited:
 -------------------
 readin_data.py --> changed it to cut out any rows that have strings; aka drop
                rows where the string in column 'Id' was 'Id'
+
+
+----------------------------------------------------------------------------(80)
+10 / 10 / 2016
+===============
+Rewrote `readin_data.py` to now transform everything into the correct format
+**phew**. Very glad to be finally done with this. Will try Random Forest next...
+
+I still get the motherfucking error!
+```
+Traceback (most recent call last):
+  File "rf_model.py", line 13, in <module>
+    rf_model.fit(train.drop('Response',axis=1),train['Response']);
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/ensemble/forest.py", line 212, in fit                                  
+    X = check_array(X, dtype=DTYPE, accept_sparse="csc")
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/utils/validation.py", line 398, in check_array                         
+    _assert_all_finite(array)
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/utils/validation.py", line 54, in _assert_all_finite                   
+    " or a value too large for %r." % X.dtype)
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+```
+
+Now I'm stuck because everything is converted and everything has no nulls and is in float32
+only. I'll have to remove the `ValueError` in the code and see what happens as a next step,
+or print out the offending lines that raise the issue. 
+
+Files Added/Edited:
+--------------------
+readin_data.py --> now with conversion to proper data types. 
