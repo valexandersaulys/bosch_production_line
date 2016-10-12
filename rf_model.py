@@ -17,11 +17,17 @@ for train,valid,test in read_data_all():
     print np.unique(test.dtypes);
 
     # Print out the number of Null values
-    print len([x for x in train.isnull() if x==True]);
-    print len([x for x in valid.isnull() if x==True]);
-    print len([x for x in test.isnull() if x==True]);
+    print np.unique(train.isnull());
+    print np.unique(valid.isnull());
+    print np.unique(test.isnull());
+
+    # Print out some false values
+    db = [i for i,x in enumerate(train.iloc[:,1].values) if np.isfinite(x)==False]
+    for j in db:
+        print train.columns[j];
     
-    rf_model.fit(train.drop('Response',axis=1),train['Response']);
+    rf_model.fit(train.drop('Response',axis=1).values,
+                 train['Response'].values);
     testing.append(test);
     y_true = valid['Response']
     y_preds = rf_model.predict(valid.drop('Response',axis=1));

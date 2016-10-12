@@ -235,3 +235,49 @@ or print out the offending lines that raise the issue.
 Files Added/Edited:
 --------------------
 readin_data.py --> now with conversion to proper data types. 
+
+----------------------------------------------------------------------------(80)
+10 / 11 / 2016
+===============
+Trying to rewrite `readin_data.py` apparently I had overlooked how the data
+came out the other day, so now I'm trying a different method that is using
+Numpy's np.isfinite() method instead like they use in the actual code of the
+random forest.
+
+Apprently there's a weird bug/feature in python that might be causing my issue.
+[See here](http://pandas.pydata.org/pandas-docs/stable/missing_data.html).
+
+I'm tired so I'm moving on and going to bed. Hoping this gets fixed tomorrow
+evening, I finished physics so I should have time now.
+
+Pasting my last major error that came up. (Did it skip my list?)
+```
+(.venv)bosch_production_line_quality/$  python rf_model.py 
+/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/readin_data.py:48: FutureWarn
+ing: convert_objects is deprecated.  Use the data-type specific converters pd.to_datetime, pd.to_ti
+medelta and pd.to_numeric.                                                                        
+  df = df.convert_objects(convert_numeric=True)
+[dtype('float32')]
+[dtype('float32')]
+[dtype('float32')]
+[False  True]
+[False  True]
+[False  True]
+Traceback (most recent call last):
+  File "rf_model.py", line 30, in <module>
+    train['Response'].values);
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/ensemble/forest.py", line 212, in fit                                  
+    X = check_array(X, dtype=DTYPE, accept_sparse="csc")
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/utils/validation.py", line 398, in check_array                         
+    _assert_all_finite(array)
+  File "/home/vincent/workspace/kaggle_projects/bosch_production_line_quality/.venv/local/lib/pytho
+n2.7/site-packages/sklearn/utils/validation.py", line 54, in _assert_all_finite                   
+    " or a value too large for %r." % X.dtype)
+ValueError: Input contains NaN, infinity or a value too large for dtype('float32').
+```
+
+Files Added/Edited:
+--------------------
+readin_data.py --> further changes to try and get out all the NaN values.
