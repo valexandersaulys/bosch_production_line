@@ -33,16 +33,18 @@ def read_data_all(n=10000,i=0,imputing="mean",split_size=0.3):
         # Date Data
         df_date = pd.read_csv(TRAIN_DATE,skiprows=i*n,nrows=n,header=None,low_memory=False)
         df_date.columns = cols_date;
-        df_date = df_date.replace([np.inf, -np.inf], np.nan)
-        df_date = df_date.fillna(0);  # damn time values screwing things up
+        df_date = df_date.replace([np.inf, -np.inf], np.nan) # clipped off fillna(0) here
 
-        # Then assmeble together
-        df = pd.merge(pd.merge(df_ohe,df_numeric,on="Id"),df_date,on="Id")
+        # Then assmeble together; filling in for missing values atm
+        df = pd.merge(pd.merge(df_ohe,df_numeric,on="Id"),df_date,on="Id").fillna(0);
         del df_numeric, df_ohe, df_date; # To clear out memory, hopefully
 
         # Cut any strings I see that somehow made it in during the file operations
         # Transform from objects into floats and such; drop the redundant Id columns
-        df = df[ df.Id.str.contains('Id')==False ]
+        try:
+            df = df[ df.Id.str.contains('Id')==False ]
+        except AttributeError:  # no 'Id' issue came up, otherwise above gives an error
+            df = df;
         cols_drop = [x for x in df.columns.tolist() if 'Id' in x][1:]
         df = df.drop(cols_drop, axis=1);
         df = df.convert_objects(convert_numeric=True)

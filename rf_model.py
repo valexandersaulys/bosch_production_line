@@ -9,18 +9,8 @@ import numpy as np
 validation = []; testing = [];
 
 # Read in the Data & train the model
-rf_model = RandomForestClassifier(n_estimators=100);
+rf_model = RandomForestClassifier(n_estimators=10);
 for train,valid,test in read_data_all():
-    # printing out the dtypes for debugging
-    print np.unique(train.dtypes);
-    print np.unique(valid.dtypes);
-    print np.unique(test.dtypes);
-
-    # Print out the number of Null values
-    print np.unique(train.isnull());
-    print np.unique(valid.isnull());
-    print np.unique(test.isnull());
-
     # Print out some false values
     db = [i for i,x in enumerate(train.iloc[:,1].values) if np.isfinite(x)==False]
     for j in db:

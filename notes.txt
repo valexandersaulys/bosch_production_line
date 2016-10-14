@@ -281,3 +281,17 @@ ValueError: Input contains NaN, infinity or a value too large for dtype('float32
 Files Added/Edited:
 --------------------
 readin_data.py --> further changes to try and get out all the NaN values.
+
+----------------------------------------------------------------------------(80)
+10 / 13 / 2016
+==============
+I suspect my issue from earlier came from not running a pd.DataFrame().fillna()
+on the final merged dataframe in `readin_data.py` as opposed to the precursor
+dataframes. Those precursors unfortuantely didn't seem to be filling in NaN
+values like they should've been.
+
+Files Added/Edited:
+-------------------
+readin_data.py --> moved an earlier .fillna(0) to later after the merge; also
+               added a try/catch statement.
+rf_model.py --> removed the debugging comments I had added in
